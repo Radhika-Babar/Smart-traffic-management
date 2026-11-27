@@ -1,0 +1,117 @@
+import type { ApproachScore, IntersectionLive, LivePayload, Overview, SimulationStatus, TransportStatus } from "@/types/api";
+
+export function score(direction: ApproachScore["direction"], priority: number): ApproachScore {
+  return {
+    direction,
+    queue: 10,
+    waiting: 30,
+    density: 40,
+    approaching: 2,
+    speed: 9,
+    queue_norm: 0.3,
+    waiting_norm: 0.25,
+    density_norm: 0.4,
+    demand_norm: 0.3,
+    speed_norm: 0.3,
+    priority,
+    has_demand: true,
+    starving: false,
+    degraded: false,
+    red_seconds: 30,
+  };
+}
+
+export const intersection: IntersectionLive = {
+  id: "INT-001",
+  name: "Northgate Circle",
+  phase: "GREEN",
+  active_direction: "NORTH",
+  heads: { NORTH: "GREEN", EAST: "RED", SOUTH: "RED", WEST: "RED" },
+  elapsed: 5,
+  planned_green: 20,
+  remaining: 15,
+  mode: "AUTOMATIC",
+  controller: "ONLINE",
+  preempt_vehicle: null,
+  preempt_direction: null,
+  approaches: (["NORTH", "EAST", "SOUTH", "WEST"] as const).map((direction, index) => ({
+    direction,
+    queue: 4 + index * 6,
+    approaching: 2,
+    avg_wait_s: 20,
+    max_wait_s: 30,
+    density: 30,
+    occupancy: 35,
+    speed: 9,
+    level: "LOW",
+  })),
+  congestion: "LOW",
+  vehicles: 22,
+  active_sensors: 21,
+  total_sensors: 21,
+  last_decision: null,
+  scores: [score("NORTH", 60), score("EAST", 30), score("SOUTH", 20), score("WEST", 45)],
+};
+
+export const overview: Overview = {
+  total_intersections: 6,
+  active_sensors: 126,
+  total_sensors: 126,
+  offline_sensors: 0,
+  total_vehicles: 150,
+  average_density: 22.5,
+  average_speed: 11,
+  total_queue: 40,
+  flow_vph: 3600,
+  active_congestion_alerts: 0,
+  active_alerts: 0,
+  active_emergencies: 0,
+  active_incidents: 0,
+  average_wait_s: 18.4,
+  average_trip_wait_s: 30,
+  flow_efficiency: 61.2,
+  completed_trips: 80,
+  auto_signals: 6,
+  network_health: { score: 100, status: "HEALTHY", sensors: 100, controllers: 100, transport: "MQTT" },
+};
+
+export const simulation: SimulationStatus = {
+  state: "RUNNING",
+  speed: 1,
+  clock: "2026-01-01T08:00:00Z",
+  sim_seconds: 100,
+  run_id: 1,
+  scenario: "NORMAL",
+  scenario_name: "Normal traffic",
+  weather: "CLEAR",
+  volume_factor: 1,
+  spawn_rate_vph: null,
+  intersection_factors: {},
+  control_strategy: "ADAPTIVE",
+  tick_ms: 1,
+  worker_alive: true,
+};
+
+export const transport: TransportStatus = {
+  mode: "MQTT",
+  enabled: true,
+  broker: "127.0.0.1:1883",
+  field_connected: true,
+  backend_connected: true,
+  reconnects: 0,
+  published: {},
+  received: {},
+  malformed: 0,
+  invalid_payloads: 0,
+  backlog: 0,
+};
+
+export const live: LivePayload = {
+  overview,
+  intersections: [intersection],
+  alerts: [],
+  emergencies: [],
+  simulation,
+  transport,
+  point: null,
+};

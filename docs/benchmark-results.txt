@@ -1,0 +1,30 @@
+| Scenario | Control | Trips | Mean travel (s) | Mean wait (s) | Stops | Wait range across seeds (s) |
+| --- | --- | ---: | ---: | ---: | ---: | --- |
+| NORMAL | ADAPTIVE | 1108 | 128.6 | 40.2 | 2.1 | 39.4 to 42.0 |
+| NORMAL | FIXED_TIME | 1096 | 186.1 | 96.8 | 2.4 | 95.6 to 98.1 |
+| NORMAL | Adaptive wait reduction | | | +58.5% | | |
+| MORNING_RUSH | ADAPTIVE | 1874 | 226.2 | 127.5 | 5.1 | 121.9 to 135.6 |
+| MORNING_RUSH | FIXED_TIME | 1647 | 312.0 | 210.3 | 6.1 | 201.3 to 214.1 |
+| MORNING_RUSH | Adaptive wait reduction | | | +39.4% | | |
+| HEAVY_CONGESTION | ADAPTIVE | 1973 | 380.2 | 269.9 | 9.1 | 241.7 to 308.1 |
+| HEAVY_CONGESTION | FIXED_TIME | 1902 | 410.2 | 299.8 | 8.9 | 284.0 to 322.7 |
+| HEAVY_CONGESTION | Adaptive wait reduction | | | +10.0% | | |
+
+| Incident type | Detected | Mean time to detect (s) |
+| --- | ---: | ---: |
+| MAJOR_ACCIDENT | 5 of 5 | 33 |
+| ROAD_BLOCKAGE | 5 of 5 | 33 |
+| MINOR_ACCIDENT | 5 of 5 | 76 |
+| SUDDEN_SLOWDOWN | 5 of 5 | 40 |
+| LANE_CLOSURE | 4 of 5 | 31 |
+
+| Scenario, no incident injected | False incidents per simulated hour |
+| --- | ---: |
+| NORMAL | 0.0 |
+| MORNING_RUSH | 0.8 |
+| HEAVY_CONGESTION | 0.2 |
+
+| Ambulance INT-001 to INT-006, morning rush | Mean travel time (s) | Arrived |
+| --- | ---: | ---: |
+| With signal priority | 111.6 | 5 of 5 |
+| Without signal priority | 225.7 | 5 of 5 |
